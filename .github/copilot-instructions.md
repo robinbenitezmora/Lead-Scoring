@@ -1,7 +1,7 @@
 # 🚀 Copilot Instructions - Lead Scoring Project
 
 **Última Actualización:** 2026-06-09  
-**Estado del Proyecto:** Fase 7 ✅ (Modelización) + Fase 8 ✅ (PRE-PRODUCCIÓN/LIMPIEZA A_08 COMPLETADA) → **LISTO PARA FASE 9: PIPELINES (A_09)**
+**Estado del Proyecto:** Fase 7 ✅ + Fase 8 ✅ + Fase 9 ✅ (PIPELINES A_09 COMPLETADA) → **LISTO PARA EJECUCIÓN Y FASE 10: VALIDACIÓN**
 
 ---
 
@@ -122,20 +122,52 @@ v3: Final ⭐ (8,970 registros, scores imputados, usuario_nuevo creado)
   - [x] `07_despliegue/pre-produccion/00_resumen_limpieza.md` - Auditoría legible
   - [x] `07_despliegue/pre-produccion/00_manifiesto_preproduccion.json` - Contrato máquina-legible para A_09
 
-#### 🔜 Fase 9: Evaluación Final en Validation.pkl + Scoring y Ranking
-- [ ] **PASO 1 - Evaluación Final (CRÍTICO):**
-  - [ ] Cargar modelo entrenado (Logistic Regression)
+#### ✅ Fase 9: Generación de Pipelines sklearn (A_09_PreProduccion_Codigos - COMPLETADA 2026-06-09) ✨
+- [x] **PASO 1 - Análisis Estático:**
+  - [x] Lectura del notebook integrado `03_notebooks/08_Preproduccion.ipynb`
+  - [x] Lectura del manifiesto `07_despliegue/pre-produccion/00_manifiesto_preproduccion.json`
+  - [x] Extracción de variables de agrupación: var_ohe, var_bin, num_escalar, var_sin_transform
+  - [x] Extracción de parámetros de búsqueda: C ∈ [0.001, 0.01, 0.1, 1, 10, 100]
+
+- [x] **PASO 2 - Generación de Scripts:**
+  - [x] `07_despliegue/01_reentrenamiento.py`:
+    - [x] Pipeline sklearn: ColumnTransformer (MinMaxScaler + OneHotEncoder + FunctionTransformer)
+    - [x] RandomizedSearchCV(n_iter=30, cv=StratifiedKFold(5), scoring='roc_auc')
+    - [x] Búsqueda de hiperparámetro C sobre pipeline completo
+    - [x] Serialización con cloudpickle → `artefacto_pipeline.pkl`
+    - [x] Flujo lineal sin main() ni if __name__ == "__main__"
+  - [x] `07_despliegue/02_produccion_scoring.py`:
+    - [x] Carga de artefacto_pipeline.pkl
+    - [x] Argumentos CLI: --input (datos nuevos) --output (resultados)
+    - [x] Prepara_datos() idéntica a reentrenamiento.py
+    - [x] predict_proba() para scoring
+    - [x] CSV output: id + prediction + probability
+    - [x] Flujo lineal sin main() ni if __name__ == "__main__"
+
+- [x] **PASO 3 - Validación Estática:**
+  - [x] 01_reentrenamiento.py: ✅ make_column_transformer, make_pipeline, RandomizedSearchCV, NO main()
+  - [x] 02_produccion_scoring.py: ✅ cloudpickle.load, predict/predict_proba, NO fit, NO main()
+  - [x] Documentación: `07_despliegue/pre-produccion/01_resumen_generacion_pipelines.md`
+
+#### 🔜 Fase 10: Evaluación Final en Validation.pkl + Scoring y Ranking
+- [ ] **PASO 1 - Ejecutar Reentrenamiento:**
+  - [ ] `python 07_despliegue/01_reentrenamiento.py`
+  - [ ] Verificar que genera `artefacto_pipeline.pkl`
+  - [ ] Validar métricas en validation set
+- [ ] **PASO 2 - Evaluación Final (CRÍTICO):**
+  - [ ] Cargar modelo entrenado desde artefacto
   - [ ] Cargar `02_datos/02_Validacion/validation.pkl` (2,691 registros)
   - [ ] Generar predicciones sobre validation set
   - [ ] Calcular métricas finales (AUC, Precision, Recall, F1, Accuracy)
   - [ ] Documentar: ¿Generaliza bien? ¿Hay degradación vs CV?
   - [ ] Validar coeficientes (compararlos con CV)
-- [ ] **PASO 2 - Scoring y Ranking:**
+- [ ] **PASO 3 - Scoring y Ranking:**
+  - [ ] `python 07_despliegue/02_produccion_scoring.py --input datos_nuevos.csv --output predicciones.csv`
   - [ ] Merge de predicciones con variables aisladas (por `id`)
   - [ ] Aplicación de lógica de exclusión (no_enviar_email = 'No')
   - [ ] Ranking de leads por probabilidad de conversión (usar umbral 0.5)
   - [ ] Generación de reportes finales
-- [ ] **PASO 3 - Exportación:**
+- [ ] **PASO 4 - Exportación:**
   - [ ] Exportar leads calificados en CSV/Excel
   - [ ] Incluir: id, probabilidad, label, ranking, exclusiones
 
