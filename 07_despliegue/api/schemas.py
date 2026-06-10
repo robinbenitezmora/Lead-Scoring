@@ -62,13 +62,15 @@ class PrediccionSalida(BaseModel):
     id: int = Field(..., description="Identificador del registro")
     prediction: int = Field(..., description="Predicción binaria (0=No compra, 1=Compra)")
     probability: float = Field(..., description="Probabilidad de compra [0.0, 1.0]")
+    canal: str = Field(..., description="Canal de seguimiento: autogestión (< 40%), automatización (40%-70%), comercial (> 70%)")
 
     class Config:
         json_schema_extra = {
             "example": {
                 "id": 660737,
                 "prediction": 0,
-                "probability": 0.1782
+                "probability": 0.1782,
+                "canal": "autogestión"
             }
         }
 

@@ -26,6 +26,29 @@ warnings.filterwarnings('ignore')
 from .scoring import scoring_df
 from .schemas import RegistroEntrada, PrediccionSalida, RespuestaPredicciones
 
+
+def asignar_canal(probability: float) -> str:
+    """
+    Lógica de negocio: clasificar leads en canales según probabilidad de compra.
+
+    Reglas:
+      - probability < 0.40        → "autogestión" (leads fríos, bajo potencial)
+      - 0.40 <= probability < 0.70 → "automatización" (leads tibios, potencial moderado)
+      - probability >= 0.70        → "comercial" (leads calientes, alto potencial)
+
+    Args:
+        probability: Probabilidad de compra [0.0, 1.0]
+
+    Returns:
+        canal: str ("autogestión", "automatización", "comercial")
+    """
+    if probability < 0.40:
+        return "autogestión"
+    elif probability < 0.70:
+        return "automatización"
+    else:
+        return "comercial"
+
 # Crear aplicación FastAPI
 app = FastAPI(
     title="Lead Scoring API",
@@ -38,6 +61,17 @@ app = FastAPI(
 def health():
     """Health check: verificar que la API está operativa."""
     return {"status": "OK", "service": "lead-scoring-api"}
+
+
+@app.get("/test-canal", response_model=PrediccionSalida, tags=["Debug"])
+def test_canal():
+    """Endpoint de prueba para verificar que el campo 'canal' se serializa."""
+    return PrediccionSalida(
+        id=999,
+        prediction=1,
+        probability=0.75,
+        canal=asignar_canal(0.75)
+    )
 
 
 @app.get("/debug", tags=["Debug"])
@@ -93,8 +127,17 @@ def debug():
         df_test = pd.DataFrame(test_data)
         result = scoring_df(df_test)
 
-        # Extraer resultado
-        sample_output = result.iloc[0].to_dict() if len(result) > 0 else None
+        # Extraer resultado y aplicar lógica de negocio
+        if len(result) > 0:
+            row = result.iloc[0]
+            sample_output = {
+                "id": int(row['id']),
+                "prediction": int(row['prediction']),
+                "probability": float(row['probability']),
+                "canal": asignar_canal(float(row['probability']))
+            }
+        else:
+            sample_output = None
 
         return {
             "status": "OK",
@@ -147,12 +190,13 @@ def predict(registros: List[RegistroEntrada]):
         # Ejecutar motor de scoring
         df_salida = scoring_df(df_entrada)
 
-        # Convertir salida a lista de diccionarios
+        # Convertir salida a lista de diccionarios con lógica de negocio
         predicciones_list = [
             PrediccionSalida(
                 id=int(row['id']),
                 prediction=int(row['prediction']),
-                probability=float(row['probability'])
+                probability=float(row['probability']),
+                canal=asignar_canal(float(row['probability']))
             )
             for _, row in df_salida.iterrows()
         ]

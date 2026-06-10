@@ -194,6 +194,18 @@ v3: Final ⭐ (8,970 registros, scores imputados, usuario_nuevo creado)
   - [x] **Start Command:** `uvicorn api.main:app --host 0.0.0.0 --port $PORT --app-dir ..`
   - [x] **PYTHON_VERSION:** `3.13.9`
 
+- [x] **FASE 1.3BIS - Lógica de Negocio (COMPLETADA) ✨ NUEVO:**
+  - [x] Implementación de clasificación de leads en canales según probabilidad
+  - [x] Función `asignar_canal(probability)` → "autogestión" | "automatización" | "comercial"
+  - [x] Umbrales configurados:
+    - probability < 0.40 → **"autogestión"** (leads fríos, bajo potencial)
+    - 0.40 ≤ probability < 0.70 → **"automatización"** (leads tibios, potencial moderado)
+    - probability ≥ 0.70 → **"comercial"** (leads calientes, alto potencial)
+  - [x] Integración en endpoint `/predict` - devuelve campo `canal` en respuesta
+  - [x] Validación: 3 leads probados con canales correctos ✅
+  - [x] Actualización de `schemas.py`: Campo `canal` agregado a `PrediccionSalida`
+  - [x] Documentación actualizada
+
 - [x] **Estructura Final (✅ Lista para Render):**
   ```
   07_despliegue/api/

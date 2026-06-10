@@ -162,12 +162,18 @@ curl -X POST https://lead-scoring-api.onrender.com/predict \
     {
       "id": 123,
       "prediction": 1,
-      "probability": 0.8234
+      "probability": 0.8234,
+      "canal": "comercial"
     }
   ],
   "total_registros": 1
 }
 ```
+
+**Campo `canal` (Lógica de Negocio):**
+- `"autogestión"` → probability < 0.40 (leads fríos, bajo potencial)
+- `"automatización"` → 0.40 ≤ probability < 0.70 (leads tibios, potencial moderado)
+- `"comercial"` → probability ≥ 0.70 (leads calientes, alto potencial)
 
 ---
 
