@@ -1,0 +1,25 @@
+visitas_total_mms
+tiempo_en_site_total_mms
+paginas_vistas_visita_mms
+score_actividad_mms
+score_perfil_mms
+origen_Landing Page Submission
+origen_Lead Add Form
+fuente_Direct Traffic
+fuente_Google
+fuente_Organic Search
+ult_actividad_Converted to Lead
+ult_actividad_Email Link Clicked
+ult_actividad_Email Opened
+ult_actividad_Form Submitted on Website
+ult_actividad_Otros
+ult_actividad_Page Visited on Website
+ult_actividad_SMS Sent
+ambito_Retail Management
+ambito_Rural and Agribusiness
+ambito_Select
+ambito_Services Excellence
+ocupacion_Housewife
+ocupacion_Other
+ocupacion_Working Professional
+usuario_nuevo

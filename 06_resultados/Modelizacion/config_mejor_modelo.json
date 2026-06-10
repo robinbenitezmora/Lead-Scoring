@@ -1,0 +1,142 @@
+{
+  "timestamp": "2026-06-09T18:24:45.274305",
+  "algoritmo": "LogisticRegression",
+  "tipo_problema": "clasificacion_binaria",
+  "dataset": {
+    "ruta": "02_datos/03_Entrenamiento/05_train_tablon_preseleccion.pkl",
+    "registros": 6279,
+    "variables": 26,
+    "tasa_positivos": 0.3718745023092849
+  },
+  "validacion": {
+    "estrategia": "StratifiedKFold",
+    "n_folds": 5,
+    "metrica_optimizacion": "recall_weighted",
+    "shuffle": true,
+    "random_state": 42
+  },
+  "mejores_parametros": {
+    "tol": "0.0001",
+    "solver": "lbfgs",
+    "penalty": "l2",
+    "max_iter": "1000",
+    "class_weight": "None",
+    "C": "100.0"
+  },
+  "metricas_cv": {
+    "recall_weighted": {
+      "media": 0.8178044509858655,
+      "std": 0.006182940559248649,
+      "min": 0.8089171974522293,
+      "max": 0.8240445859872612
+    },
+    "precision_weighted": {
+      "media": 0.8160636537284247,
+      "std": 0.006412235038062868,
+      "min": 0.8069284208631305,
+      "max": 0.8228383437610305
+    },
+    "f1_weighted": {
+      "media": 0.8154265387537076,
+      "std": 0.005684647999502588,
+      "min": 0.807218064890516,
+      "max": 0.8208573937957035
+    },
+    "roc_auc": {
+      "media": 0.8863990682876629,
+      "std": 0.003149239837936316,
+      "min": 0.8817976282350894,
+      "max": 0.8894841544469865
+    },
+    "accuracy": {
+      "media": 0.8178044509858655,
+      "std": 0.006182940559248649,
+      "min": 0.8089171974522293,
+      "max": 0.8240445859872612
+    }
+  },
+  "variables_top10_coeficientes": [
+    {
+      "variable": "tiempo_en_site_total_mms",
+      "coeficiente": 1.0964990370804382
+    },
+    {
+      "variable": "ocupacion_Not Provided",
+      "coeficiente": -0.7312709350810462
+    },
+    {
+      "variable": "ult_actividad_SMS Sent",
+      "coeficiente": 0.58186881858184
+    },
+    {
+      "variable": "ocupacion_Working Professional",
+      "coeficiente": 0.5776891947320123
+    },
+    {
+      "variable": "fuente_Direct Traffic",
+      "coeficiente": -0.5462317534676404
+    },
+    {
+      "variable": "origen_Lead Add Form",
+      "coeficiente": 0.4672367329085667
+    },
+    {
+      "variable": "ult_actividad_Chat Conversation",
+      "coeficiente": -0.4412615003457443
+    },
+    {
+      "variable": "ult_actividad_Email Bounced",
+      "coeficiente": -0.3991251051902331
+    },
+    {
+      "variable": "fuente_Google",
+      "coeficiente": -0.3896655245413162
+    },
+    {
+      "variable": "origen_Landing Page Submission",
+      "coeficiente": -0.367446271678822
+    }
+  ],
+  "variables_top10_permutation": [
+    {
+      "variable": "tiempo_en_site_total_mms",
+      "importancia": 0.10777193820672079
+    },
+    {
+      "variable": "ult_actividad_SMS Sent",
+      "importancia": 0.029526994744386036
+    },
+    {
+      "variable": "ocupacion_Not Provided",
+      "importancia": 0.02591176939003026
+    },
+    {
+      "variable": "fuente_Direct Traffic",
+      "importancia": 0.02310877528268831
+    },
+    {
+      "variable": "ocupacion_Working Professional",
+      "importancia": 0.02044911610129001
+    },
+    {
+      "variable": "origen_Lead Add Form",
+      "importancia": 0.017534639273769692
+    },
+    {
+      "variable": "fuente_Google",
+      "importancia": 0.013616817964644024
+    },
+    {
+      "variable": "origen_Landing Page Submission",
+      "importancia": 0.013298295906991563
+    },
+    {
+      "variable": "fuente_Organic Search",
+      "importancia": 0.011020863194776232
+    },
+    {
+      "variable": "ambito_Select",
+      "importancia": 0.009762701067048874
+    }
+  ]
+}

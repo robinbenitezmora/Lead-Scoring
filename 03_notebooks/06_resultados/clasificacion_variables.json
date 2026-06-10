@@ -1,0 +1,30 @@
+{
+  "numeric_discrete": [
+    "compra",
+    "score_actividad",
+    "score_perfil",
+    "tiene_score_actividad",
+    "tiene_score_perfil",
+    "usuario_nuevo"
+  ],
+  "numeric_continuous": [
+    "id",
+    "visitas_total",
+    "tiempo_en_site_total",
+    "paginas_vistas_visita"
+  ],
+  "categorical": [
+    "origen",
+    "fuente",
+    "ult_actividad",
+    "ambito",
+    "ocupacion"
+  ],
+  "boolean": [
+    "no_enviar_email",
+    "descarga_lm"
+  ],
+  "high_cardinality": [],
+  "text": [],
+  "datetime": []
+}

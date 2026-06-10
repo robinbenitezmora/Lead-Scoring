@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/robin/dev/01_LEADSCORING/**)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\robin\\dev\\01_LEADSCORING\\03_notebooks\\06_resultados\\EDA_graficos"
+    ]
+  }
+}

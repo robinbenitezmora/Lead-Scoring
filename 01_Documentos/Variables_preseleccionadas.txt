@@ -1,0 +1,26 @@
+visitas_total_mms
+tiempo_en_site_total_mms
+paginas_vistas_visita_mms
+usuario_nuevo
+origen_Landing Page Submission
+origen_Lead Add Form
+fuente_Direct Traffic
+fuente_Google
+fuente_Organic Search
+fuente_Press_Release
+ult_actividad_Chat Conversation
+ult_actividad_Converted to Lead
+ult_actividad_Email Bounced
+ult_actividad_Email Link Clicked
+ult_actividad_Email Opened
+ult_actividad_Form Submitted on Website
+ult_actividad_Had a Phone Conversation
+ult_actividad_Page Visited on Website
+ult_actividad_SMS Sent
+ambito_Not Specified
+ambito_Retail Management
+ambito_Select
+ocupacion_Housewife
+ocupacion_Not Provided
+ocupacion_Unemployed
+ocupacion_Working Professional

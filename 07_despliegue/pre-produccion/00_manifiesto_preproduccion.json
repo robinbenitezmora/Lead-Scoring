@@ -1,0 +1,415 @@
+{
+  "version": "1.0",
+  "generado_por": "A_08_PreProduccionLimpieza",
+  "timestamp": "2026-06-09T00:00:00",
+  "notebook_fuente": "03_notebooks/08_Preproduccion.ipynb",
+
+  "fuente_datos": {
+    "archivo": "02_datos/01_Originales/Leads.csv",
+    "columnas_raw": [
+      "id", "origen", "fuente", "no_enviar_email", "no_llamar", "compra",
+      "visitas_total", "tiempo_en_site_total", "paginas_vistas_visita",
+      "ult_actividad", "ambito", "ocupacion", "conociste_google",
+      "conociste_revista", "conociste_periodico", "conociste_youtube",
+      "conociste_facebook", "conociste_referencias", "score_actividad",
+      "score_perfil", "descarga_lm", "tiene_score_actividad", "tiene_score_perfil"
+    ],
+    "columnas_finales": [
+      "id", "origen", "fuente", "no_enviar_email", "compra",
+      "visitas_total", "tiempo_en_site_total", "paginas_vistas_visita",
+      "ult_actividad", "ambito", "ocupacion", "conociste_google",
+      "conociste_periodico", "conociste_facebook", "conociste_referencias",
+      "score_actividad", "score_perfil", "descarga_lm",
+      "tiene_score_actividad", "tiene_score_perfil", "usuario_nuevo"
+    ],
+    "registros_originales": 9093,
+    "registros_finales": 6279
+  },
+
+  "variable_objetivo": {
+    "nombre": "compra",
+    "tipo": "int64",
+    "valores": [0, 1],
+    "distribucion": {
+      "0": 3847,
+      "1": 2432
+    },
+    "tasa_positiva": 0.3873
+  },
+
+  "features_finalistas": [
+    {
+      "nombre": "visitas_total_mms",
+      "tipo": "float64",
+      "origen": "visitas_total",
+      "transformacion": "MinMaxScaler [0,1]",
+      "requiere_fit": true,
+      "importante": true,
+      "rank_mi": 1
+    },
+    {
+      "nombre": "tiempo_en_site_total_mms",
+      "tipo": "float64",
+      "origen": "tiempo_en_site_total",
+      "transformacion": "MinMaxScaler [0,1]",
+      "requiere_fit": true,
+      "importante": true,
+      "rank_mi": 2
+    },
+    {
+      "nombre": "paginas_vistas_visita_mms",
+      "tipo": "float64",
+      "origen": "paginas_vistas_visita",
+      "transformacion": "MinMaxScaler [0,1]",
+      "requiere_fit": true,
+      "importante": true,
+      "rank_mi": 3
+    },
+    {
+      "nombre": "score_actividad_mms",
+      "tipo": "float64",
+      "origen": "score_actividad",
+      "transformacion": "MinMaxScaler [0,1]",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 15
+    },
+    {
+      "nombre": "score_perfil_mms",
+      "tipo": "float64",
+      "origen": "score_perfil",
+      "transformacion": "MinMaxScaler [0,1]",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 18
+    },
+    {
+      "nombre": "usuario_nuevo",
+      "tipo": "int64",
+      "origen": "usuario_nuevo",
+      "transformacion": "sin transformación (creada en A_01)",
+      "requiere_fit": false,
+      "importante": true,
+      "rank_mi": 4
+    },
+    {
+      "nombre": "origen_Landing Page Submission",
+      "tipo": "int64",
+      "origen": "origen",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": true,
+      "rank_mi": 5
+    },
+    {
+      "nombre": "origen_Lead Add Form",
+      "tipo": "int64",
+      "origen": "origen",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 12
+    },
+    {
+      "nombre": "origen_Lead Import",
+      "tipo": "int64",
+      "origen": "origen",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 21
+    },
+    {
+      "nombre": "fuente_Google",
+      "tipo": "int64",
+      "origen": "fuente",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": true,
+      "rank_mi": 6
+    },
+    {
+      "nombre": "fuente_Direct Traffic",
+      "tipo": "int64",
+      "origen": "fuente",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": true,
+      "rank_mi": 7
+    },
+    {
+      "nombre": "fuente_Reference",
+      "tipo": "int64",
+      "origen": "fuente",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 9
+    },
+    {
+      "nombre": "fuente_Organic Search",
+      "tipo": "int64",
+      "origen": "fuente",
+      "transformacion": "OneHotEncod er (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 19
+    },
+    {
+      "nombre": "ult_actividad_Email Opened",
+      "tipo": "int64",
+      "origen": "ult_actividad",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": true,
+      "rank_mi": 8
+    },
+    {
+      "nombre": "ult_actividad_Had a Phone Conversation",
+      "tipo": "int64",
+      "origen": "ult_actividad",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": true,
+      "rank_mi": 10
+    },
+    {
+      "nombre": "ult_actividad_SMS Sent",
+      "tipo": "int64",
+      "origen": "ult_actividad",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 11
+    },
+    {
+      "nombre": "ult_actividad_Page Visited on Website",
+      "tipo": "int64",
+      "origen": "ult_actividad",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 13
+    },
+    {
+      "nombre": "ambito_Select",
+      "tipo": "int64",
+      "origen": "ambito",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 14
+    },
+    {
+      "nombre": "ambito_Finance Management",
+      "tipo": "int64",
+      "origen": "ambito",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 16
+    },
+    {
+      "nombre": "ambito_Human Resource Management",
+      "tipo": "int64",
+      "origen": "ambito",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 17
+    },
+    {
+      "nombre": "ocupacion_Unemployed",
+      "tipo": "int64",
+      "origen": "ocupacion",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 20
+    },
+    {
+      "nombre": "ocupacion_Working Professional",
+      "tipo": "int64",
+      "origen": "ocupacion",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 22
+    },
+    {
+      "nombre": "descarga_lm_Yes",
+      "tipo": "int64",
+      "origen": "descarga_lm",
+      "transformacion": "OneHotEncoder (drop='first')",
+      "requiere_fit": true,
+      "importante": false,
+      "rank_mi": 23
+    },
+    {
+      "nombre": "conociste_google",
+      "tipo": "str → int64",
+      "origen": "conociste_google",
+      "transformacion": "Sin transformación (binaria categórica: Yes/No)",
+      "requiere_fit": false,
+      "importante": false,
+      "rank_mi": 24
+    },
+    {
+      "nombre": "conociste_periodico",
+      "tipo": "str → int64",
+      "origen": "conociste_periodico",
+      "transformacion": "Sin transformación (binaria categórica: Yes/No)",
+      "requiere_fit": false,
+      "importante": false,
+      "rank_mi": 25
+    },
+    {
+      "nombre": "conociste_referencias",
+      "tipo": "str → int64",
+      "origen": "conociste_referencias",
+      "transformacion": "Sin transformación (binaria categórica: Yes/No)",
+      "requiere_fit": false,
+      "importante": false,
+      "rank_mi": 26
+    }
+  ],
+
+  "modelo_final": {
+    "clase": "LogisticRegression",
+    "hiperparametros": {
+      "C": "óptimo (determinar en RandomizedSearchCV)",
+      "penalty": "l2",
+      "solver": "lbfgs",
+      "max_iter": 1000,
+      "random_state": 42
+    },
+    "validacion": {
+      "estrategia": "StratifiedKFold(n_splits=5, shuffle=True)",
+      "busqueda_hiperparametros": "RandomizedSearchCV(n_iter=30)",
+      "metrica_optimizacion": "roc_auc"
+    },
+    "metrica_validacion": {
+      "nombre": "roc_auc",
+      "valor_cv": 0.8898,
+      "descripcion": "AUC-ROC en validación cruzada (5 folds)"
+    },
+    "metricas_entrenamiento": {
+      "accuracy": 0.8216,
+      "precision": 0.7901,
+      "recall": 0.7028,
+      "f1_score": 0.7439,
+      "roc_auc": 0.8898
+    }
+  },
+
+  "variables_aisladas": {
+    "descripcion": "Variables extraídas pre-modelización, reinserción post-predicción",
+    "lista": ["id", "no_enviar_email"]
+  },
+
+  "variables_agrupacion_pipeline": {
+    "var_ohe": ["origen", "fuente", "ult_actividad", "ambito", "ocupacion", "descarga_lm"],
+    "var_bin": ["no_enviar_email", "conociste_google", "conociste_periodico", "conociste_facebook", "conociste_referencias"],
+    "num_escalar": ["visitas_total", "tiempo_en_site_total", "paginas_vistas_visita", "score_actividad", "score_perfil"],
+    "var_sin_transform": ["usuario_nuevo", "tiene_score_actividad", "tiene_score_perfil"]
+  },
+
+  "dag_transformaciones": {
+    "orden_ejecucion": ["P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08"],
+    "pasos": [
+      {
+        "paso_id": "P01",
+        "descripcion": "Carga CSV original desde 02_datos/01_Originales/Leads.csv",
+        "inputs": ["Leads.csv"],
+        "outputs": ["df (9093 registros × 23 columnas)"],
+        "depende_de": [],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P02",
+        "descripcion": "Eliminación de nulos críticos en visitas_total, paginas_vistas_visita",
+        "inputs": ["df"],
+        "outputs": ["df (8970 registros)"],
+        "depende_de": ["P01"],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P03",
+        "descripcion": "Imputación de scores y creación usuario_nuevo",
+        "inputs": ["df"],
+        "outputs": ["df con usuario_nuevo"],
+        "depende_de": ["P02"],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P04",
+        "descripcion": "Imputación de categóricas (fuente, ambito, ocupacion) + eliminar columnas sin varianza",
+        "inputs": ["df"],
+        "outputs": ["df (6279 registros × 21 columnas)"],
+        "depende_de": ["P03"],
+        "tipo_sklearn": "none",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P05",
+        "descripcion": "Split train/validation 70/30 sin leakage",
+        "inputs": ["df"],
+        "outputs": ["train_df (6279), validation_df (2691)"],
+        "depende_de": ["P04"],
+        "tipo_sklearn": "train_test_split",
+        "requiere_fit": false
+      },
+      {
+        "paso_id": "P06",
+        "descripcion": "MinMaxScaler aplicado a variables numéricas",
+        "inputs": ["visitas_total", "tiempo_en_site_total", "paginas_vistas_visita", "score_actividad", "score_perfil"],
+        "outputs": ["*_mms variables (5)"],
+        "depende_de": ["P05"],
+        "tipo_sklearn": "MinMaxScaler",
+        "requiere_fit": true
+      },
+      {
+        "paso_id": "P07",
+        "descripcion": "OneHotEncoding para variables categóricas nominales",
+        "inputs": ["origen", "fuente", "ult_actividad", "ambito", "ocupacion", "descarga_lm"],
+        "outputs": ["60 features binarios"],
+        "depende_de": ["P05"],
+        "tipo_sklearn": "OneHotEncoder",
+        "requiere_fit": true
+      },
+      {
+        "paso_id": "P08",
+        "descripcion": "Preselección de 26 features usando mutual_info_classif",
+        "inputs": ["67 features (1 target + 66)"],
+        "outputs": ["26 features seleccionados"],
+        "depende_de": ["P06", "P07"],
+        "tipo_sklearn": "mutual_info_classif",
+        "requiere_fit": false
+      }
+    ]
+  },
+
+  "instrucciones_para_a09": {
+    "notebook_fuente": "03_notebooks/08_Preproduccion.ipynb",
+    "extraer_de_notebook": [
+      "var_ohe, var_bin, num_escalar, var_sin_transform (para ColumnTransformer)",
+      "param_grid completo (para RandomizedSearchCV)",
+      "Hiperparámetros ganadores (C, penalty, solver)",
+      "train_test_split (para replicar partición)",
+      "Pipeline([('preprocessor', ColumnTransformer), ('classifier', LogisticRegression)])"
+    ],
+    "generar_scripts": [
+      "07_despliegue/01_reentrenamiento.py - Entrena modelo con RandomizedSearchCV, serializa",
+      "07_despliegue/02_produccion_scoring.py - Carga modelo, genera predicciones"
+    ],
+    "notas": [
+      "No crear transformers custom sklearn-style",
+      "Preservar variables de agrupación: var_ohe, var_bin, num_escalar",
+      "Usar Pipeline + ColumnTransformer como estructura",
+      "Validación.pkl reservado SOLO para evaluación final (FASE 8), NO usar en training"
+    ]
+  }
+}
