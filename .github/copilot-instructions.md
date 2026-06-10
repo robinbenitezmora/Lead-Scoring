@@ -1,7 +1,7 @@
 # 🚀 Copilot Instructions - Lead Scoring Project
 
 **Última Actualización:** 2026-06-09  
-**Estado del Proyecto:** Fase 7 ✅ + Fase 8 ✅ + Fase 9 ✅ (PIPELINES A_09 COMPLETADA) → **LISTO PARA EJECUCIÓN Y FASE 10: VALIDACIÓN**
+**Estado del Proyecto:** Fase 7 ✅ + Fase 8 ✅ + Fase 9 ✅ + Fase 10 ✅ (API A_11_API_DEPLOYER COMPLETADA) → **LISTO PARA RENDER**
 
 ---
 
@@ -149,27 +149,72 @@ v3: Final ⭐ (8,970 registros, scores imputados, usuario_nuevo creado)
   - [x] 02_produccion_scoring.py: ✅ cloudpickle.load, predict/predict_proba, NO fit, NO main()
   - [x] Documentación: `07_despliegue/pre-produccion/01_resumen_generacion_pipelines.md`
 
-#### 🔜 Fase 10: Evaluación Final en Validation.pkl + Scoring y Ranking
-- [ ] **PASO 1 - Ejecutar Reentrenamiento:**
-  - [ ] `python 07_despliegue/01_reentrenamiento.py`
-  - [ ] Verificar que genera `artefacto_pipeline.pkl`
-  - [ ] Validar métricas en validation set
-- [ ] **PASO 2 - Evaluación Final (CRÍTICO):**
-  - [ ] Cargar modelo entrenado desde artefacto
-  - [ ] Cargar `02_datos/02_Validacion/validation.pkl` (2,691 registros)
-  - [ ] Generar predicciones sobre validation set
-  - [ ] Calcular métricas finales (AUC, Precision, Recall, F1, Accuracy)
-  - [ ] Documentar: ¿Generaliza bien? ¿Hay degradación vs CV?
-  - [ ] Validar coeficientes (compararlos con CV)
-- [ ] **PASO 3 - Scoring y Ranking:**
-  - [ ] `python 07_despliegue/02_produccion_scoring.py --input datos_nuevos.csv --output predicciones.csv`
-  - [ ] Merge de predicciones con variables aisladas (por `id`)
-  - [ ] Aplicación de lógica de exclusión (no_enviar_email = 'No')
-  - [ ] Ranking de leads por probabilidad de conversión (usar umbral 0.5)
-  - [ ] Generación de reportes finales
-- [ ] **PASO 4 - Exportación:**
-  - [ ] Exportar leads calificados en CSV/Excel
-  - [ ] Incluir: id, probabilidad, label, ranking, exclusiones
+#### ✅ Fase 10: API FastAPI de Scoring (A_11_API_Deployer - COMPLETADA 2026-06-09) ✨
+- [x] **FASE 0 - Discovery Ligero (COMPLETADA):**
+  - [x] Detección de entorno Python: Python 3.13.9 en Miniconda
+  - [x] Inspección de `02_produccion_scoring.py` como fuente de verdad
+  - [x] Reconstrucción del flujo real: 16 features → LogisticRegression
+  - [x] Análisis de datos de referencia: Leads.csv (21 columnas, 9,093 registros)
+  - [x] Validación estructural del motor: artefacto cargable ✅
+  - [x] Validación de consistencia: schema ↔ flujo ↔ motor ✅
+
+- [x] **FASE 1 - Preparar Entorno (COMPLETADA):**
+  - [x] Contrato oficial de entrada: 16 campos Pydantic (`RegistroEntrada`)
+  - [x] Contrato oficial de salida: id, prediction, probability (`PrediccionSalida`)
+  - [x] Selección de variables: **SALIDA COMPLETA** (todas las columnas del motor)
+  - [x] Lógica de negocio: Sin enriquecimiento, valores directos del motor
+  - [x] Generación de `api/schemas.py`: Modelos Pydantic validados
+  - [x] Generación de `api/scoring.py`: Motor reutilizable con `scoring_df(df)`
+  - [x] Generación de `api/main.py`: FastAPI con 3 endpoints (/health, /debug, /predict)
+  - [x] Generación de `api/requirements.txt`: Dependencias para Render
+
+- [x] **FASE 3 - Lanzar API Local (COMPLETADA):**
+  - [x] Instalación de dependencias: pip install -r requirements.txt ✅
+  - [x] Lanzamiento con uvicorn: http://127.0.0.1:8000 ✅
+  - [x] Regeneración de artefacto con sklearn 1.7.2 (compatibilidad) ✅
+
+- [x] **FASE 4 - Pruebas Locales (COMPLETADA):**
+  - [x] `/health` → 200 OK ✅
+  - [x] `/debug` → 200 OK (motor diagnosticado) ✅
+  - [x] `/predict` → 200 OK (inferencia funcional con 3 registros) ✅
+  - [x] `/docs` → 200 OK (Swagger UI disponible) ✅
+  - [x] Validación de contrato de entrada/salida ✅
+
+- [x] **FASE 5 - Cliente Externo (COMPLETADA):**
+  - [x] Generación de `cliente_api/cliente_scoring.py`
+  - [x] Generación de `cliente_api/payload.json`
+  - [x] Validación funcional del cliente externo ✅
+
+- [x] **FASE 6 - Preparar para Render (COMPLETADA):**
+  - [x] Verificación de estructura desplegable en `07_despliegue/api/`
+  - [x] Copia de artefacto a directorio de despliegue ✅
+  - [x] Documentación: `RENDER_DEPLOYMENT.md`
+  - [x] **Root Directory:** `07_despliegue/api`
+  - [x] **Build Command:** `pip install -r requirements.txt`
+  - [x] **Start Command:** `uvicorn api.main:app --host 0.0.0.0 --port $PORT --app-dir ..`
+  - [x] **PYTHON_VERSION:** `3.13.9`
+
+- [x] **Estructura Final (✅ Lista para Render):**
+  ```
+  07_despliegue/api/
+    ├── __init__.py
+    ├── main.py                    (punto de entrada: app)
+    ├── scoring.py                 (motor: scoring_df(df))
+    ├── schemas.py                 (Pydantic: RegistroEntrada, PrediccionSalida)
+    ├── artefacto_pipeline.pkl     (modelo entrenado)
+    ├── requirements.txt           (dependencias)
+    ├── test_payload.json          (payload de prueba)
+    ├── RENDER_DEPLOYMENT.md       (instrucciones)
+    └── cliente_api/
+        ├── cliente_scoring.py
+        └── payload.json
+  ```
+
+#### 🔜 Fase 11: Evaluación Final en Validation.pkl (Siguiente)
+- [ ] Cargar modelo entrenado desde artefacto
+- [ ] Cargar `02_datos/02_Validacion/validation.pkl` (2,691 registros)
+- [ ] Generar predicciones sobre validation set
+- [ ] Calcular métricas finales y documentar generalización
 
 ---
 

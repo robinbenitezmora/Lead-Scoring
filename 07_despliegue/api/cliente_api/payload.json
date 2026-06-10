@@ -1,0 +1,40 @@
+[
+  {
+    "id": 660737,
+    "origen": "API",
+    "fuente": "Chat",
+    "ult_actividad": "Page Visited on Website",
+    "ambito": "Select",
+    "ocupacion": "Unemployed",
+    "descarga_lm": "No",
+    "conociste_google": "No",
+    "conociste_periodico": "No",
+    "conociste_facebook": "No",
+    "conociste_referencias": "No",
+    "visitas_total": 0,
+    "tiempo_en_site_total": 0,
+    "paginas_vistas_visita": 0.0,
+    "score_actividad": 15,
+    "score_perfil": 15,
+    "usuario_nuevo": 0
+  },
+  {
+    "id": 660728,
+    "origen": "API",
+    "fuente": "Organic Search",
+    "ult_actividad": "Email Opened",
+    "ambito": "Select",
+    "ocupacion": "Unemployed",
+    "descarga_lm": "No",
+    "conociste_google": "No",
+    "conociste_periodico": "No",
+    "conociste_facebook": "No",
+    "conociste_referencias": "No",
+    "visitas_total": 5,
+    "tiempo_en_site_total": 674,
+    "paginas_vistas_visita": 2.5,
+    "score_actividad": 15,
+    "score_perfil": 15,
+    "usuario_nuevo": 0
+  }
+]
